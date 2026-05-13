@@ -1,21 +1,17 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace Ahorcado
 {
     public class MotorViborita : IMotorJuego
     {
         public int Ancho { get; } = 20;
-
         public int Alto { get; } = 15;
 
         private readonly LinkedList<(int x, int y)> _cuerpo =
             new LinkedList<(int x, int y)>();
 
         private (int x, int y) _direccion = (1, 0);
-
         private (int x, int y) _comida;
-
         private bool _perdido = false;
 
         public int Puntos { get; private set; } = 0;
@@ -64,15 +60,14 @@ namespace Ahorcado
             if (_perdido)
                 return;
 
-            var cabeza = _cuerpo.First.Value;
+            var cabeza = _cuerpo.First!.Value;
 
             var nueva = (
-                cabeza.x + _direccion.x,
-                cabeza.y + _direccion.y
+                x: cabeza.x + _direccion.x,
+                y: cabeza.y + _direccion.y
             );
 
-            if (nueva.Item1 < 0 || nueva.Item1 >= Ancho ||
-                nueva.Item2 < 0 || nueva.Item2 >= Alto)
+            if (nueva.x < 0 || nueva.x >= Ancho || nueva.y < 0 || nueva.y >= Alto)
             {
                 _perdido = true;
                 return;
@@ -103,10 +98,7 @@ namespace Ahorcado
 
             do
             {
-                _comida = (
-                    random.Next(Ancho),
-                    random.Next(Alto)
-                );
+                _comida = (random.Next(Ancho), random.Next(Alto));
             }
             while (_cuerpo.Contains(_comida));
         }

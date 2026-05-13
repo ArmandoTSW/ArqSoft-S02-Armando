@@ -1,4 +1,6 @@
-﻿namespace Ahorcado
+﻿using System.Linq;
+
+namespace Ahorcado
 {
     public class ConsolaUIViborita
     {
@@ -12,34 +14,36 @@
         public void MostrarTablero()
         {
             Console.SetCursorPosition(0, 0);
+
             Console.WriteLine($"=== VIBORITA === Puntos: {_motor.Puntos}");
             Console.WriteLine("+" + new string('-', _motor.Ancho) + "+");
 
             for (int y = 0; y < _motor.Alto; y++)
             {
                 Console.Write("|");
+
                 for (int x = 0; x < _motor.Ancho; x++)
                 {
                     var pos = (x, y);
 
-                    // Lógica de dibujo corregida
                     if (_motor.Cuerpo.First() == pos)
                     {
-                        Console.Write("@"); // cabeza
+                        Console.Write("@");
                     }
                     else if (_motor.Cuerpo.Contains(pos))
                     {
-                        Console.Write("o"); // cuerpo
+                        Console.Write("o");
                     }
                     else if (_motor.Comida == pos)
                     {
-                        Console.Write("*"); // comida
+                        Console.Write("*");
                     }
                     else
                     {
-                        Console.Write(" "); // vacío
+                        Console.Write(" ");
                     }
                 }
+
                 Console.WriteLine("|");
             }
 
@@ -50,12 +54,14 @@
         public ConsoleKey LeerTecla()
         {
             if (Console.KeyAvailable)
-                return Console.ReadKey(intercept: true).Key;
+                return Console.ReadKey(true).Key;
 
             return ConsoleKey.NoName;
         }
 
-        public void MostrarMensaje(string mensaje) =>
-        Console.WriteLine(mensaje);
+        public void MostrarMensaje(string mensaje)
+        {
+            Console.WriteLine(mensaje);
+        }
     }
 }

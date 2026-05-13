@@ -1,21 +1,17 @@
 ﻿using System.Threading;
 
 Console.WriteLine("¿Qué juego quieres jugar?");
-Console.WriteLine("1 — Ahorcado");
-Console.WriteLine("2 — Viborita");
+Console.WriteLine("1 - Ahorcado");
+Console.WriteLine("2 - Viborita");
 Console.Write("Opción: ");
 
-var opcion = Console.ReadLine();
+string? opcion = Console.ReadLine();
 
 if (opcion == "1")
 {
     var repositorio = new Ahorcado.PalabrasEnMemoria();
-
     var motor = new Ahorcado.MotorAhorcado(repositorio);
-
     var ui = new Ahorcado.ConsolaUI(motor);
-
-    Console.WriteLine("=== AHORCADO ===");
 
     while (!motor.Ganado() && !motor.Perdido())
     {
@@ -35,18 +31,13 @@ if (opcion == "1")
     ui.MostrarTablero();
 
     if (motor.Ganado())
-    {
         ui.MostrarMensaje($"\n¡Ganaste! La palabra era: {motor.PalabraSecreta}");
-    }
     else
-    {
         ui.MostrarMensaje($"\nPerdiste. La palabra era: {motor.PalabraSecreta}");
-    }
 }
 else if (opcion == "2")
 {
     var motor = new Ahorcado.MotorViborita();
-
     var ui = new Ahorcado.ConsolaUIViborita(motor);
 
     Console.CursorVisible = false;
@@ -61,9 +52,7 @@ else if (opcion == "2")
             break;
 
         if (tecla != ConsoleKey.NoName)
-        {
             motor.CambiarDireccion(tecla);
-        }
 
         motor.Avanzar();
 
@@ -72,18 +61,17 @@ else if (opcion == "2")
 
     ui.MostrarTablero();
 
-    if (motor.Ganado())
-    {
-        ui.MostrarMensaje("\n¡Ganaste! Llegaste a 10 puntos.");
-    }
-    else
-    {
-        ui.MostrarMensaje("\nGame over.");
-    }
-
     Console.CursorVisible = true;
+
+    if (motor.Ganado())
+        ui.MostrarMensaje("\n¡Ganaste! Llegaste a 10 puntos.");
+    else
+        ui.MostrarMensaje("\nGame over.");
 }
 else
 {
     Console.WriteLine("Opción no válida.");
 }
+
+Console.WriteLine("\nPresiona una tecla para salir...");
+Console.ReadKey();
