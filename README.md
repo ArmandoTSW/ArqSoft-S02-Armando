@@ -47,6 +47,9 @@ Se aplicaron conceptos como:
    - descubrir toda la palabra, o
    - completar el dibujo del ahorcado.
 
+## Captura del juego
+
+![Juego Ahorcado](./img/ahorcado.png)
 ---
 
 # Tecnologías utilizadas
